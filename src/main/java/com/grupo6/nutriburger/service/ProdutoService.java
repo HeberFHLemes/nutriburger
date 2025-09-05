@@ -1,5 +1,6 @@
 package com.grupo6.nutriburger.service;
 
+import com.grupo6.nutriburger.dto.ProdutoDTO;
 import com.grupo6.nutriburger.model.Produto;
 import com.grupo6.nutriburger.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,14 +11,20 @@ import java.util.List;
 @Service
 public class ProdutoService {
 
-    // TODO: implementar regras de negócio e uso da classe de persistência para a entidade Produto.
-
     @Autowired
     private ProdutoRepository produtoRepository;
 
-    // public ProdutoService(ProdutoRepository produtoRepository){ this.produtoRepository=produtoRepository; }
+    public List<ProdutoDTO> getAll(){
+        return toListDTO(this.produtoRepository.findAll());
+    }
 
-    public List<Produto> getAll(){
-        return this.produtoRepository.findAll();
+    public ProdutoDTO getById(final Long id){
+        Produto produto = produtoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Produto não encontrado..."));
+        return new ProdutoDTO(produto);
+    }
+
+    private List<ProdutoDTO> toListDTO(List<Produto> produto){
+        return produto.stream().map(ProdutoDTO::new).toList();
     }
 }

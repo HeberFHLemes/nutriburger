@@ -11,9 +11,4 @@ public class ProdutoIngrediente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    /* TODO: definir como será o relacionamento/query para mostrar
-    *   tanto os produtos como os seus dados nutricionais,
-    *   considerando seus ingredientes. Caso entidade separada, utilizar esta, caso não,
-    *   incluir campos e alterações necessárias nas entidades Produto e Ingrediente. */
 }
