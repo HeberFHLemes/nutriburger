@@ -4,4 +4,4 @@ INSERT INTO produtos(nome, preco) VALUES
 ('Coca-cola', 8.90),
 ('Pepsi', 7.90),
 ('Guaraná', 7.90),
-('Porção de Batata-Frita', 10.90);
+('Batata-Frita', 10.90);
