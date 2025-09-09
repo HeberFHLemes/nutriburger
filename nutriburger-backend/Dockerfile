@@ -8,6 +8,6 @@ RUN mvn clean package -DskipTests
 # runtime
 FROM amazoncorretto:21-alpine
 WORKDIR /app
-COPY --from=build /app/target/*.jar delivery.jar
+COPY --from=build /app/target/*.jar nutriburger.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "delivery.jar"]
+ENTRYPOINT ["java", "-jar", "nutriburger.jar"]
