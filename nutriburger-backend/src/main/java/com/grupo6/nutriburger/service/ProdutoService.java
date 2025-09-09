@@ -1,5 +1,6 @@
 package com.grupo6.nutriburger.service;
 
+import com.grupo6.nutriburger.dto.ProdutoBasicoDTO;
 import com.grupo6.nutriburger.dto.ProdutoDTO;
 import com.grupo6.nutriburger.model.Produto;
 import com.grupo6.nutriburger.repository.ProdutoRepository;
@@ -13,6 +14,10 @@ public class ProdutoService {
 
     @Autowired
     private ProdutoRepository produtoRepository;
+
+    public List<ProdutoBasicoDTO> getProdutosBasicos(){
+        return produtoRepository.buscarProdutosBasicos();
+    }
 
     public List<ProdutoDTO> getAll(){
         return toListDTO(this.produtoRepository.findAll());

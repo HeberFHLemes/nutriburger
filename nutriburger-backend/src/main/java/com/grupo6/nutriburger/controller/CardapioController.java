@@ -1,5 +1,6 @@
 package com.grupo6.nutriburger.controller;
 
+import com.grupo6.nutriburger.dto.ProdutoBasicoDTO;
 import com.grupo6.nutriburger.dto.ProdutoDTO;
 import com.grupo6.nutriburger.service.ProdutoService;
 
@@ -30,13 +31,21 @@ public class CardapioController {
     @GetMapping
     public ResponseEntity<List<ProdutoDTO>> getCardapio(HttpServletRequest request){
         String frontendUrl = request.getHeader("X-Frontend-URL");
-        logger.info("Requisição vinda de: " + frontendUrl);
-        logger.info("Retornando cardápio completo...");
+        logger.info("Requisição vinda de {}, buscando o cardápio completo ", frontendUrl);
         return ResponseEntity.ok().body(produtoService.getAll());
     }
 
+    @GetMapping("/basico")
+    public ResponseEntity<List<ProdutoBasicoDTO>> getCardapioBasico(HttpServletRequest request){
+        String frontendUrl = request.getHeader("X-Frontend-URL");
+        logger.info("Requisição vinda de {}, buscando o cardápio simples ", frontendUrl);
+        return ResponseEntity.ok().body(produtoService.getProdutosBasicos());
+    }
+
     @GetMapping("/{id}")
-    public ResponseEntity<ProdutoDTO> getDadosProduto(@PathVariable Long id){
+    public ResponseEntity<ProdutoDTO> getDadosProduto(@PathVariable Long id, HttpServletRequest request){
+        String frontendUrl = request.getHeader("X-Frontend-URL");
+        logger.info("Requisição vinda de {}, buscando os dados do produto de id {}", frontendUrl, id);
         return ResponseEntity.ok().body(produtoService.getById(id));
     }
 }
