@@ -9,15 +9,23 @@ services:
       - db-data:/var/lib/postgresql/data
       - ./db/init:/docker-entrypoint-initdb.d
 
-#  backend:
-#    build: .
-#    env_file:
-#      - .env
-#    ports:
-#      - "8080:8080"
-#    depends_on:
-#      - db
-#    restart: "no"
+  backend:
+    build: ./nutriburger-backend
+    env_file:
+      - nutriburger-backend/.env
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    restart: "no"
+
+  frontend:
+    build: ./nutriburger-frontend
+    ports:
+      - "4200:4200"
+    depends_on:
+      - backend
+    restart: "no"
 
 volumes:
   db-data:

@@ -4,6 +4,7 @@ import { CurrencyPipe } from '@angular/common';
 import { KeyValuePipe } from '@angular/common';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
+import { environment } from '../../../environments/environment';
 
 registerLocaleData(localePt);
 
@@ -33,7 +34,7 @@ export class Cardapio implements OnInit{
   }
 
   getCardapio(){
-    this.http.get<Produto[]>('http://localhost:8080/cardapio')
+    this.http.get<Produto[]>(`${environment.apiUrl}/cardapio`)
       .subscribe({
         next: (data) => (this.produtos = data),
         error: () => { 

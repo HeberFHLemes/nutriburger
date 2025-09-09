@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class IngredienteService {
 
+    @SuppressWarnings("unused")
     private final IngredienteRepository ingredienteRepository;
 
     public IngredienteService(IngredienteRepository ingredienteRepository){
