@@ -5,6 +5,7 @@ import { KeyValuePipe } from '@angular/common';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { environment } from '../../../environments/environment';
+import { HttpHeaders } from '@angular/common/http';
 
 registerLocaleData(localePt);
 
@@ -34,7 +35,11 @@ export class Cardapio implements OnInit{
   }
 
   getCardapio(){
-    this.http.get<Produto[]>(`${environment.apiUrl}/cardapio`)
+    const headers = new HttpHeaders({
+      'X-Frontend-URL': window.location.href
+    });
+
+    this.http.get<Produto[]>(`${environment.apiUrl}/cardapio`, { headers })
       .subscribe({
         next: (data) => (this.produtos = data),
         error: () => { 
