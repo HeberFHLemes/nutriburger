@@ -17,6 +17,12 @@ interface Produto {
   ingredientes: string[];
 }
 
+interface ProdutoBasico {
+  id: number;
+  nome: string;
+  preco: number;
+}
+
 @Component({
   selector: 'app-cardapio',
   standalone: true,
@@ -28,10 +34,15 @@ interface Produto {
 export class Cardapio implements OnInit{
   produtos: Produto[] = [];
 
+  produtosBasicos: ProdutoBasico[] = [];
+  produtoDados: Produto | undefined;
+  selectedId?: number;
+
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
     this.getCardapio();
+    this.getCardapioBasico();
   }
 
   getCardapio(){
@@ -42,8 +53,39 @@ export class Cardapio implements OnInit{
     this.http.get<Produto[]>(`${environment.apiUrl}/cardapio`, { headers })
       .subscribe({
         next: (data) => (this.produtos = data),
-        error: () => { 
+        error: () => {
           alert('Erro ao carregar o cardápio...');
+        }
+      });
+  }
+
+  getCardapioBasico(){
+    const headers = new HttpHeaders({
+          'X-Frontend-URL': window.location.href
+    });
+
+    this.http.get<ProdutoBasico[]>(`${environment.apiUrl}/cardapio/basico`, { headers })
+      .subscribe({
+        next: (data) => (this.produtosBasicos = data),
+        error: () => {
+          alert('Erro ao carregar o cardápio...');
+          this.http.get(`/`);
+        }
+      });
+  }
+
+  getProdutoDados(id: number){
+    const headers = new HttpHeaders({
+      'X-Frontend-URL': window.location.href
+    });
+    this.selectedId = id;
+    this.http.get<Produto>(`${environment.apiUrl}/cardapio/${id}`, { headers })
+      .subscribe({
+        next: (data) => {
+          this.produtoDados = data;
+        },
+        error: () => {
+          alert('Erro ao carregar dados do produto...');
         }
       });
   }

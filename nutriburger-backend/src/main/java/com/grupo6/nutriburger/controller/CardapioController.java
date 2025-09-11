@@ -43,9 +43,24 @@ public class CardapioController {
     }
 
     @GetMapping("/{id}")
+    public ResponseEntity<ProdutoDTO> getProduto(HttpServletRequest request, @PathVariable Long id){
+        String frontendUrl = request.getHeader("X-Frontend-URL");
+        logger.info("{} requisitou os dados do produto de id {} ", frontendUrl, id);
+
+        ProdutoDTO produtoDTO = produtoService.getById(id);
+
+        String mensagem = produtoDTO != null
+                ? "Produto encontrado, retornando seus dados..."
+                : "Produto não encontrado...";
+        logger.info("{}", mensagem);
+
+        return ResponseEntity.ok().body(produtoDTO);
+    }
+
+    /*@GetMapping("/{id}")
     public ResponseEntity<ProdutoDTO> getDadosProduto(@PathVariable Long id, HttpServletRequest request){
         String frontendUrl = request.getHeader("X-Frontend-URL");
         logger.info("Requisição vinda de {}, buscando os dados do produto de id {}", frontendUrl, id);
         return ResponseEntity.ok().body(produtoService.getById(id));
-    }
+    }*/
 }
