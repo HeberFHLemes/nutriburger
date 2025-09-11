@@ -1,0 +1,14 @@
+services:
+  # para o live reload com spring devtools
+  backend:
+    volumes:
+      - ./nutriburger-backend:/app
+    entrypoint: [""]
+    command: ./mvnw spring-boot:run
+
+  # para preservar os node_modules do container
+  frontend:
+    volumes:
+      - ./nutriburger-frontend:/app
+      - /app/node_modules
+    command: npm start
