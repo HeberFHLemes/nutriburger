@@ -50,8 +50,12 @@ Em um terminal:
 cd nutriburger
 
 # Suba os contêineres com o uso do docker-compose.yml
+docker-compose -f docker-compose.yml up
+
+# Caso esteja desenvolvendo, há o docker-compose.override.yml para facilitar
 docker-compose up
 ```
+
 O Backend rodará em `localhost:8080` e o Frontend em `localhost:4200`. Além disso, a imagem do Postgres criada também estará rodando.
 
 Para desenvolvimento em apenas backend OU frontend, pode ser realizado o `docker-compose up db`, subindo apenas o contêiner do Postgres, e então o projeto poderá ser inicializado dentro da IDE escolhida.
