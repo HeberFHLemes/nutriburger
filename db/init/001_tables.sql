@@ -16,9 +16,9 @@ CREATE TABLE produtos (
 CREATE TABLE ingredientes (
   id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   nome VARCHAR(100) NOT NULL,
+  acucares NUMERIC(10, 2) NOT NULL,
   carboidratos NUMERIC(10, 2) NOT NULL,
   proteinas NUMERIC(10, 2) NOT NULL,
-  acucares NUMERIC(10, 2) NOT NULL,
   sodio NUMERIC(10, 2) NOT NULL
 );
 
@@ -33,9 +33,9 @@ CREATE TABLE produto_ingrediente (
 CREATE TABLE produto_dados_nutricionais (
   id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   produto_id INT UNIQUE NOT NULL,
+  acucares NUMERIC(10, 2) NOT NULL,
   carboidratos NUMERIC(10, 2) NOT NULL,
   proteinas NUMERIC(10, 2) NOT NULL,
-  acucares NUMERIC(10, 2) NOT NULL,
   sodio NUMERIC(10, 2) NOT NULL,
   FOREIGN KEY (produto_id) REFERENCES produtos(id) ON DELETE CASCADE
 );
