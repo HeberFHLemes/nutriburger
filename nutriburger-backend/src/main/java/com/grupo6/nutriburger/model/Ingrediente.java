@@ -3,25 +3,26 @@ package com.grupo6.nutriburger.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import org.hibernate.annotations.Immutable;
 
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
+@Entity @Immutable
 @Table(name = "ingredientes")
-public class Ingrediente {
+public final class Ingrediente {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(insertable = false, updatable = false)
     private String nome;
+
+    @Column(insertable = false, updatable = false)
+    private Double acucares;
 
     @Column(insertable = false, updatable = false)
     private Double carboidratos;
@@ -30,16 +31,13 @@ public class Ingrediente {
     private Double proteinas;
 
     @Column(insertable = false, updatable = false)
-    private Double acucares;
-
-    @Column(insertable = false, updatable = false)
     private Double sodio;
 
     @ManyToMany(mappedBy = "ingredientes")
     @JsonIgnore
     private Set<Produto> produtos = new HashSet<>();
 
-    protected Ingrediente(){}
+    private Ingrediente(){}
 
     public Ingrediente(String nome, Double carboidratos, Double proteinas, Double acucares, Double sodio) {
         this.nome = nome;
@@ -49,7 +47,7 @@ public class Ingrediente {
         this.sodio = sodio;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 

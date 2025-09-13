@@ -6,15 +6,17 @@ import com.grupo6.nutriburger.model.Produto;
 import java.util.List;
 
 public class ProdutoDTO {
-    private Long id;
-    private String nome;
-    private Double preco;
+    private final Integer id;
+    private final String nome;
+    private final String descricao;
+    private final Double preco;
     private DadosNutricionaisDTO dadosNutricionais;
-    private List<String> ingredientes;
+    private final List<String> ingredientes;
 
     public ProdutoDTO(Produto produto) {
         this.id = produto.getId();
         this.nome = produto.getNome();
+        this.descricao = produto.getDescricao();
         this.preco = produto.getPreco();
         if (produto.getDadosNutricionais() != null) {
             this.dadosNutricionais = new DadosNutricionaisDTO(produto.getDadosNutricionais());
@@ -25,13 +27,15 @@ public class ProdutoDTO {
                 .toList();
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
     public String getNome() {
         return nome;
     }
+
+    public String getDescricao() { return descricao; }
 
     public Double getPreco() {
         return preco;
