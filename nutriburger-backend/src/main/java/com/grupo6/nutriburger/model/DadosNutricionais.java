@@ -2,24 +2,25 @@ package com.grupo6.nutriburger.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import org.hibernate.annotations.Immutable;
 
-@Entity
-@Table(name = "produtos_dados_nutricionais")
-public class DadosNutricionais {
+@Entity @Immutable
+@Table(name = "produto_dados_nutricionais")
+public final class DadosNutricionais {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @OneToOne
     @JoinColumn(name = "produto_id", nullable = false)
     private Produto produto;
+
+    @Column(insertable = false, updatable = false, nullable = false)
+    private Double acucares;
 
     @Column(insertable = false, updatable = false, nullable = false)
     private Double carboidratos;
@@ -28,15 +29,9 @@ public class DadosNutricionais {
     private Double proteinas;
 
     @Column(insertable = false, updatable = false, nullable = false)
-    private Double acucares;
-
-    @Column(insertable = false, updatable = false, nullable = false)
     private Double sodio;
 
-    // private Boolean semGluten = false;
-    // private Boolean semLactose = false;
-
-    protected DadosNutricionais() {}
+    private DadosNutricionais() {}
 
     public DadosNutricionais(Produto produto, Double carboidratos, Double proteinas,
                                     Double acucares, Double sodio) {
@@ -47,7 +42,7 @@ public class DadosNutricionais {
         this.sodio = sodio;
     }
 
-    public Long getId() { return id; }
+    public Integer getId() { return id; }
     public Produto getProduto() { return produto; }
     public Double getCarboidratos() { return carboidratos; }
     public Double getProteinas() { return proteinas; }

@@ -1,14 +1,15 @@
 package com.grupo6.nutriburger.controller;
 
+import com.grupo6.nutriburger.dto.CategoriaDTO;
 import com.grupo6.nutriburger.dto.ProdutoBasicoDTO;
 import com.grupo6.nutriburger.dto.ProdutoDTO;
+import com.grupo6.nutriburger.service.CategoriaService;
 import com.grupo6.nutriburger.service.ProdutoService;
 
 import jakarta.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,14 +26,30 @@ public class CardapioController {
 
     private static final Logger logger = LoggerFactory.getLogger(CardapioController.class);
 
-    @Autowired
-    private ProdutoService produtoService;
+    private final ProdutoService produtoService;
+
+    private final CategoriaService categoriaService;
+
+    public CardapioController(ProdutoService produtoService, CategoriaService categoriaService){
+        this.produtoService = produtoService;
+        this.categoriaService = categoriaService;
+    }
 
     @GetMapping
     public ResponseEntity<List<ProdutoDTO>> getCardapio(HttpServletRequest request){
         String frontendUrl = request.getHeader("X-Frontend-URL");
         logger.info("Requisição vinda de {}, buscando o cardápio completo ", frontendUrl);
         return ResponseEntity.ok().body(produtoService.getAll());
+    }
+
+    @GetMapping("/categorias")
+    public ResponseEntity<List<CategoriaDTO>> getCardapioByCategoria(HttpServletRequest request){
+        String frontendUrl = request.getHeader("X-Frontend-URL");
+        logger.info(
+                "Requisição vinda de {}, buscando o cardápio completo divido por categorias de produtos",
+                frontendUrl
+        );
+        return ResponseEntity.ok().body(categoriaService.getAll());
     }
 
     @GetMapping("/basico")
@@ -43,7 +60,7 @@ public class CardapioController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProdutoDTO> getProduto(HttpServletRequest request, @PathVariable Long id){
+    public ResponseEntity<ProdutoDTO> getProduto(HttpServletRequest request, @PathVariable Integer id){
         String frontendUrl = request.getHeader("X-Frontend-URL");
         logger.info("{} requisitou os dados do produto de id {} ", frontendUrl, id);
 
@@ -56,11 +73,4 @@ public class CardapioController {
 
         return ResponseEntity.ok().body(produtoDTO);
     }
-
-    /*@GetMapping("/{id}")
-    public ResponseEntity<ProdutoDTO> getDadosProduto(@PathVariable Long id, HttpServletRequest request){
-        String frontendUrl = request.getHeader("X-Frontend-URL");
-        logger.info("Requisição vinda de {}, buscando os dados do produto de id {}", frontendUrl, id);
-        return ResponseEntity.ok().body(produtoService.getById(id));
-    }*/
 }
