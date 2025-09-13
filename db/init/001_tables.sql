@@ -8,7 +8,7 @@ CREATE TABLE produtos (
   nome VARCHAR(50) NOT NULL,
   descricao VARCHAR(255) NOT NULL,
   preco NUMERIC(10, 2) NOT NULL,
-  imagem_url VARCHAR(255) NOT NULL,
+  imagem_url VARCHAR(255),
   categoria_id INT,
   FOREIGN KEY (categoria_id) REFERENCES categorias(id) ON DELETE NO ACTION ON UPDATE CASCADE
 );
