@@ -1,35 +1,41 @@
+CREATE TABLE categorias (
+  id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  nome VARCHAR(25) NOT NULL
+);
+
 CREATE TABLE produtos (
-  id BIGSERIAL PRIMARY KEY,
-  nome VARCHAR(20) NOT NULL,
-  preco NUMERIC(10, 2) NOT NULL
-  -- categoria VARCHAR(20) -- hamburguer, bebida, porcao, acompanhamento, combo
+  id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  nome VARCHAR(50) NOT NULL,
+  descricao VARCHAR(255) NOT NULL,
+  preco NUMERIC(10, 2) NOT NULL,
+  imagem_url VARCHAR(255),
+  categoria_id INT,
+  FOREIGN KEY (categoria_id) REFERENCES categorias(id) ON DELETE NO ACTION ON UPDATE CASCADE
 );
 
 CREATE TABLE ingredientes (
-  id BIGSERIAL PRIMARY KEY,
+  id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   nome VARCHAR(100) NOT NULL,
+  acucares NUMERIC(10, 2) NOT NULL,
   carboidratos NUMERIC(10, 2) NOT NULL,
   proteinas NUMERIC(10, 2) NOT NULL,
-  acucares NUMERIC(10, 2) NOT NULL,
   sodio NUMERIC(10, 2) NOT NULL
 );
 
-CREATE TABLE produtos_ingredientes (
-  id BIGSERIAL PRIMARY KEY,
-  produto_id BIGINT NOT NULL,
-  ingrediente_id BIGINT NOT NULL,
+CREATE TABLE produto_ingrediente (
+  produto_id INT NOT NULL,
+  ingrediente_id INT NOT NULL,
+  PRIMARY KEY (produto_id, ingrediente_id),
   FOREIGN KEY (produto_id) REFERENCES produtos(id) ON DELETE CASCADE,
   FOREIGN KEY (ingrediente_id) REFERENCES ingredientes(id) ON DELETE CASCADE
 );
 
-CREATE TABLE produtos_dados_nutricionais (
-  id BIGSERIAL PRIMARY KEY,
-  produto_id BIGINT UNIQUE NOT NULL,
+CREATE TABLE produto_dados_nutricionais (
+  id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  produto_id INT UNIQUE NOT NULL,
+  acucares NUMERIC(10, 2) NOT NULL,
   carboidratos NUMERIC(10, 2) NOT NULL,
   proteinas NUMERIC(10, 2) NOT NULL,
-  acucares NUMERIC(10, 2) NOT NULL,
   sodio NUMERIC(10, 2) NOT NULL,
-  -- sem_gluten BOOLEAN DEFAULT false,
-  -- sem_lactose BOOLEAN DEFAULT false,
   FOREIGN KEY (produto_id) REFERENCES produtos(id) ON DELETE CASCADE
 );
