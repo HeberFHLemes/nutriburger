@@ -1,4 +1,4 @@
-<div class="container my-4">
+<!-- <div class="container my-4">
   <h2 class="mb-4">Cardápio</h2>
   <div class="row g-4">
     @for (produto of produtos; track produto.id) {
@@ -38,8 +38,8 @@
         </div>
       </div>
     }
-  </div>
-
+  </div> -->
+<!--
   <h2>Cardápio Simples</h2>
   <div class="row g-4">
     @for (produto of produtosBasicos; track produto.id) {
@@ -73,5 +73,67 @@
         </div>
       </div>
     }
+  </div>
+</div>
+-->
+
+<div class="container my-4">
+  <h2>Cardápio</h2>
+  <div class="row g-4">
+    @for (produto of produtosBasicos; track produto.id) {
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm"
+            role="button"
+            (click)="abrirModal(produto.id)"
+            data-bs-toggle="modal"
+            data-bs-target="#produtoModal">
+          <div class="card-body">
+            <h5 class="card-title">{{ produto.nome }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">
+              {{ produto.preco | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+            </h6>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>
+
+<!-- MODAL do produto-->
+<div class="modal fade" id="produtoModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      @if (produtoDados){
+        <div class="modal-body">
+          <div class="row g-4">
+            <div class="col-md-5">
+              <img [src]="produtoDados.imagemUrl" class="img-fluid rounded" [alt]="produtoDados.nome">
+            </div>
+            <div class="col-md-7">
+              <h4 class="mb-1">{{ produtoDados.nome }}</h4>
+              <h5 class="text-success mb-3">
+                {{ produtoDados.preco | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+              </h5>
+              <p class="mb-4">{{ produtoDados.descricao }}</p>
+
+              <h6>Dados Nutricionais</h6>
+              <table class="table table-sm table-bordered mt-2">
+                <tbody>
+                  @for (entry of produtoDados.dadosNutricionais | keyvalue; track entry.key) {
+                    <tr>
+                      <td class="fw-semibold">{{ entry.key }}</td>
+                      <td>{{ entry.value }}</td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
   </div>
 </div>

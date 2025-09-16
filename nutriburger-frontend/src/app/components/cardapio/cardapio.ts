@@ -12,7 +12,9 @@ registerLocaleData(localePt);
 interface Produto {
   id: number;
   nome: string;
+  descricao: string;
   preco: number;
+  imagemUrl: string;
   dadosNutricionais: { [key: string]: string | number };
   ingredientes: string[];
 }
@@ -88,5 +90,14 @@ export class Cardapio implements OnInit{
           alert('Erro ao carregar dados do produto...');
         }
       });
+  }
+
+  abrirModal(id: number) {
+    this.getProdutoDados(id);
+    
+    if (this.produtoDados){
+      this.produtoDados.imagemUrl = "assets/produtos/nutriburger.jpg"
+      // this.produtoDados.imagemUrl = "assets/produtos/" + this.produtoDados.id + ".jpg";
+    }
   }
 }
