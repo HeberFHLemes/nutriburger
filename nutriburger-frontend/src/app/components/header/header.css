@@ -1,0 +1,40 @@
+nav > .container-fluid {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+#navbar-brand-a {
+    font-family: 'Bangers', cursive;
+    font-size: 1.6rem;
+}
+
+#navbar-ul {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#navbar-ul li a{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+@media (max-width: 576px) {
+    nav > a.navbar-brand {
+        font-size: 1.2rem;
+    }
+
+    #navbar-ul li a {
+        font-size: 0.9rem;
+    }
+
+    #navbar-ul {
+        gap: 10px;
+    }
+}

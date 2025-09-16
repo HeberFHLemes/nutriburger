@@ -100,4 +100,23 @@ export class Cardapio implements OnInit{
       // this.produtoDados.imagemUrl = "assets/produtos/" + this.produtoDados.id + ".jpg";
     }
   }
+
+  tiposDadosNutricionais = ["acucares", "carboidratos", "proteinas", "sodio"];
+  formatarDadosNutricionais(dados: { [key: string]: string | number }): string[] {
+    let dadosArray = Object.keys(dados).map(key => {
+        switch (key) {
+          case 'acucares':
+            return `Açúcares: ${dados[key]} g`;
+          case 'carboidratos':
+            return `Carboidratos: ${dados[key]} g`;
+          case 'proteinas':
+            return `Proteínas: ${dados[key]} g`;
+          case 'sodio':
+            return `Sódio: ${dados[key]} mg`;
+          default:
+            return `${key}: ${dados[key]}`;
+      }
+    });
+    return dadosArray;
+  }
 }
