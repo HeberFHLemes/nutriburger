@@ -52,7 +52,7 @@ public final class Produto {
     @JoinColumn(name = "categoria_id", nullable = false)
     private Categoria categoria;
 
-    private Produto(){}
+    protected Produto(){}
 
     public Produto(String nome, Double preco){
         this.nome=nome;

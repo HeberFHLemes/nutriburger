@@ -27,7 +27,7 @@ public final class Categoria {
         this.nome = nome;
     }
 
-    private Categoria(){}
+    protected Categoria(){}
 
     public Integer getId() {
         return id;

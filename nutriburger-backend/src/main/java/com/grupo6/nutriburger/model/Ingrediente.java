@@ -37,7 +37,7 @@ public final class Ingrediente {
     @JsonIgnore
     private Set<Produto> produtos = new HashSet<>();
 
-    private Ingrediente(){}
+    protected Ingrediente(){}
 
     public Ingrediente(String nome, Double carboidratos, Double proteinas, Double acucares, Double sodio) {
         this.nome = nome;

@@ -16,7 +16,7 @@ interface Produto {
   descricao: string;
   preco: number;
   imagemUrl?: string;
-  dadosNutricionais: { [key: string]: string | number };
+  dadosNutricionais: { [key: string]: string };
   ingredientes: string[];
 }
 
@@ -139,28 +139,13 @@ export class Cardapio implements OnInit{
     this.getProdutoDados(id);
   }
 
-  /*tiposDadosNutricionais = ["acucares", "carboidratos", "proteinas", "sodio"];
-  normalizacaoTiposDadosNutricionais = {
-    "acucares": "Açúcares",
-    "carboidratos": "Carboidratos",
-    "proteinas": "Proteínas",
-    "sodio": "Sódio"
-  };
-  formatarDadosNutricionais(dados: { [key: string]: string | number }): string[] {
-    let dadosArray = Object.keys(dados).map(key => {
-        switch (key) {
-          case 'acucares':
-            return `Açúcares: ${dados[key]} g`;
-          case 'carboidratos':
-            return `Carboidratos: ${dados[key]} g`;
-          case 'proteinas':
-            return `Proteínas: ${dados[key]} g`;
-          case 'sodio':
-            return `Sódio: ${dados[key]} mg`;
-          default:
-            return `${key}: ${dados[key]}`;
-      }
-    });
-    return dadosArray;
-  }*/
+  formatarDadoNutricional(dado: string): string{
+    if (!dado) return '';
+
+    const [valor, unidade] = dado.split(" ");
+    if (!valor) return dado;
+
+    const valorFormatado = Number(valor).toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+    return unidade ? `${valorFormatado} ${unidade}` : valorFormatado;
+  }
 }

@@ -2,15 +2,17 @@ package com.grupo6.nutriburger.dto;
 
 import com.grupo6.nutriburger.model.Ingrediente;
 import com.grupo6.nutriburger.model.Produto;
+import com.grupo6.nutriburger.enums.TipoDadoNutricional;
 
 import java.util.List;
+import java.util.Map;
 
 public class ProdutoDTO {
     private final Integer id;
     private final String nome;
     private final String descricao;
     private final Double preco;
-    private DadosNutricionaisDTO dadosNutricionais;
+    private Map<String, String> dadosNutricionais;
     private final List<String> ingredientes;
 
     public ProdutoDTO(Produto produto) {
@@ -18,9 +20,9 @@ public class ProdutoDTO {
         this.nome = produto.getNome();
         this.descricao = produto.getDescricao();
         this.preco = produto.getPreco();
-        if (produto.getDadosNutricionais() != null) {
-            this.dadosNutricionais = new DadosNutricionaisDTO(produto.getDadosNutricionais());
-        }
+
+        this.dadosNutricionais = TipoDadoNutricional.getDadosMapeados(produto.getDadosNutricionais().toMap());
+     
         this.ingredientes = produto.getIngredientes()
                 .stream()
                 .map(Ingrediente::getNome)
@@ -41,7 +43,7 @@ public class ProdutoDTO {
         return preco;
     }
 
-    public DadosNutricionaisDTO getDadosNutricionais() {
+    public Map<String, String> getDadosNutricionais() {
         return dadosNutricionais;
     }
 
