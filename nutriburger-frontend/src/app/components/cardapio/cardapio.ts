@@ -24,6 +24,7 @@ interface ProdutoBasico {
   id: number;
   nome: string;
   preco: number;
+  imagemUrl?: string;
 }
 
 interface Categoria {
@@ -41,51 +42,37 @@ interface Categoria {
 })
 
 export class Cardapio implements OnInit{
-  /* 
-    Atributo para a listagem completa com todos os dados dos produtos.
-    Atualmente não está sendo utilizado, mas pode ser útil para futuras implementações.
-  */
-  produtos: Produto[] = [];
 
   /* 
-    Atributos para a listagem geral com dados básicos (id, nome, preço)
-    e, ao clicar em um, carregam-se os dados completos 
-    (descrição, ingredientes, dados nutricionais)
+    Atributos para que, ao clicar em um modal,
+    carregam-se os dados completos do produto selecionado
+    (nome, descrição, preço, ingredientes, dados nutricionais)
     para exibir em um modal.
   */
-  produtosBasicos: ProdutoBasico[] = [];
   produtoDados: Produto | undefined;
   selectedId?: number;
 
   /**
    * Atributo para armazenar as categorias e seus produtos.
    * Utilizado para implementar a listagem geral de produtos,
-   * divididos por suas categorias.
+   * divididos por suas categorias, sendo que os produtos apresentam
+   * apenas os seus dados básicos (id, nome, preço e imagem).
    */
   categorias: Categoria[] = [];
 
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    // this.getCardapio();
-    this.getCardapioBasico();
     this.getCardapioPorCategoria();
   }
 
-  getCardapio(){
-    const headers = new HttpHeaders({
-      'X-Frontend-URL': window.location.href
-    });
-
-    this.http.get<Produto[]>(`${environment.apiUrl}/cardapio`, { headers })
-      .subscribe({
-        next: (data) => (this.produtos = data),
-        error: () => {
-          alert('Erro ao carregar o cardápio...');
-        }
-      });
-  }
-
+  /**
+   * Obtém o cardápio completo, dividido por categorias.
+   * Cada categoria contém uma lista de produtos com seus dados básicos
+   * (id, nome, preço e imagem).
+   * Os dados completos de cada produto são obtidos apenas quando o usuário
+   * clica no produto para ver mais detalhes.
+   */
   getCardapioPorCategoria(){
     const headers = new HttpHeaders({
       'X-Frontend-URL': window.location.href
@@ -102,21 +89,11 @@ export class Cardapio implements OnInit{
       }); 
   }
 
-  getCardapioBasico(){
-    const headers = new HttpHeaders({
-          'X-Frontend-URL': window.location.href
-    });
-
-    this.http.get<ProdutoBasico[]>(`${environment.apiUrl}/cardapio/basico`, { headers })
-      .subscribe({
-        next: (data) => (this.produtosBasicos = data),
-        error: () => {
-          alert('Erro ao carregar o cardápio...');
-          this.http.get(`/`);
-        }
-      });
-  }
-
+  /**
+   * Obtém os dados completos de um produto.
+   * @param id ID do produto a ser buscado
+   * @returns Dados completos do produto (nome, descrição, preço, ingredientes, dados nutricionais)
+   */
   getProdutoDados(id: number){
     const headers = new HttpHeaders({
       'X-Frontend-URL': window.location.href
@@ -127,7 +104,7 @@ export class Cardapio implements OnInit{
         next: (data) => {
           this.produtoDados = data;
         
-          this.produtoDados.imagemUrl = this.produtoDados.imagemUrl ? this.produtoDados.imagemUrl : 'assets/nutriburger.jpg';
+          this.produtoDados.imagemUrl = this.produtoDados.imagemUrl ? this.produtoDados.imagemUrl : 'assets/logo.jpg';
         },
         error: () => {
           alert('Erro ao carregar dados do produto...');
@@ -135,10 +112,20 @@ export class Cardapio implements OnInit{
       });
   }
 
+  /**
+   * Abre o modal com os dados do produto clicado.
+   * @param id ID do produto clicado
+   */
   abrirModal(id: number) {
     this.getProdutoDados(id);
   }
 
+  /**
+   * Função que formata os dados nutricionais para o formato brasileiro.
+   * (decimal com vírgula, uma casa decimal)
+   * @param dado Dado nutricional no formato "valor unidade", ex: "250.0 kcal"
+   * @returns Dado nutricional formatado, ex: "250,0 kcal"
+   */
   formatarDadoNutricional(dado: string): string{
     if (!dado) return '';
 
@@ -147,5 +134,9 @@ export class Cardapio implements OnInit{
 
     const valorFormatado = Number(valor).toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
     return unidade ? `${valorFormatado} ${unidade}` : valorFormatado;
+  }
+
+  adicionarAoCarrinho(produtoId: number | undefined) {
+    if (!produtoId) return;
   }
 }

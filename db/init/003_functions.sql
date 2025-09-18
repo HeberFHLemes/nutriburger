@@ -3,14 +3,8 @@ RETURNS TRIGGER AS $$
 DECLARE
   p_id INT;
 BEGIN
-  IF TG_OP = 'DELETE' THEN
-    p_id := OLD.produto_id;
-
-    IF NOT EXISTS (SELECT 1 FROM produto_ingrediente WHERE produto_id = p_id) THEN
-      DELETE FROM produto_dados_nutricionais WHERE produto_id = p_id;
-    END IF;
-  ELSE
-    p_id := NEW.produto_id;
+  
+  p_id := NEW.produto_id;
 
   INSERT INTO produto_dados_nutricionais (produto_id, acucares, carboidratos, proteinas, sodio)
   SELECT
@@ -29,13 +23,12 @@ BEGIN
     carboidratos = EXCLUDED.carboidratos,
     proteinas = EXCLUDED.proteinas,
     sodio = EXCLUDED.sodio;
-  END IF;
 
   RETURN NULL;
 END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER trigger_dados_nutricionais
-AFTER INSERT OR UPDATE OR DELETE ON produto_ingrediente
+AFTER INSERT OR UPDATE ON produto_ingrediente
 FOR EACH ROW
 EXECUTE FUNCTION calcular_dados_nutricionais();

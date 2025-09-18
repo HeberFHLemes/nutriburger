@@ -21,8 +21,10 @@ public class ProdutoDTO {
         this.descricao = produto.getDescricao();
         this.preco = produto.getPreco();
 
-        this.dadosNutricionais = TipoDadoNutricional.getDadosMapeados(produto.getDadosNutricionais().toMap());
-     
+        if (produto.getDadosNutricionais() != null) {
+            this.dadosNutricionais = TipoDadoNutricional.getDadosMapeados(produto.getDadosNutricionais().toMap());
+        }
+        
         this.ingredientes = produto.getIngredientes()
                 .stream()
                 .map(Ingrediente::getNome)

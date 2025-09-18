@@ -23,7 +23,7 @@
               (click)="abrirModal(produto.id)"
               data-bs-toggle="modal"
               data-bs-target="#produtoModal">
-              <img src="assets/nutriburger.jpg" class="img-fluid rounded" [alt]="produto.nome" style="max-height: 200px; width: 100%; object-fit: cover;">
+              <img src="assets/logo.jpg" class="img-fluid rounded imagem-card-produto" [alt]="produto.nome">
               <div class="card-body">
                 <h5 class="card-title">{{ produto.nome }}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">
@@ -57,18 +57,37 @@
                 {{ produtoDados.preco | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
               </h5>
               <p class="mb-4">{{ produtoDados.descricao }}</p>
-
-              <h6>Dados Nutricionais</h6>
-              <table class="table table-sm table-bordered mt-2">
-                <tbody>
-                  @for (entry of produtoDados.dadosNutricionais | keyvalue; track entry.key) {
-                    <tr>
-                      <td class="fw-semibold">{{ entry.key }}</td>
-                      <td>{{ formatarDadoNutricional(entry.value) }}</td>
-                    </tr>
+              
+              <!-- Badges de ingredientes, desativado por conta da descrição já ser suficiente
+              @if (produtoDados.ingredientes.length > 0) {
+                <div class="mt-3 mb-3">
+                  @for (ingrediente of produtoDados.ingredientes; track $index) {
+                      <span class="badge bg-black me-1">
+                          {{ ingrediente }}
+                      </span>
                   }
-                </tbody>
-              </table>
+                </div>
+              }
+              -->
+
+              @if (produtoDados.dadosNutricionais) {
+                <h6>Dados Nutricionais</h6>
+                <table class="table table-sm table-bordered mt-2">
+                  <tbody>
+                    @for (entry of produtoDados.dadosNutricionais | keyvalue; track entry.key) {
+                      <tr>
+                        <td class="fw-semibold">{{ entry.key }}</td>
+                        <td>{{ formatarDadoNutricional(entry.value) }}</td>
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              } @else {
+                <p class="text-muted small fst-italic mt-2 mb-0">
+                  <i class="bi bi-info-circle me-1"></i>
+                  Produto de terceiros – confira os dados nutricionais com os fabricantes.
+                </p>
+              }
             </div>
           </div>
         </div>
