@@ -3,6 +3,12 @@
     margin-bottom: 20px;
 }
 
+#cardapioDiv {
+    margin:auto;
+    margin-top: 6%;
+    padding: 30px;
+}
+
 .categoriaHeader {
     font-size: 1.4rem;
     font-weight: normal;

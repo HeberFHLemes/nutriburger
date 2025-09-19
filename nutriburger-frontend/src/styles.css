@@ -6,23 +6,6 @@ body {
     color: #333;
 }
 
-#boasVindasDiv {
-    max-width: 50%;
-    margin:auto;
-    margin-top: 12%;
-    margin-bottom: 2%;
-}
-
-#divInicial {
-    text-align: center;
-}
-
-#cardapioDiv {
-    margin:auto;
-    margin-top: 6%;
-    padding: 30px;
-}
-
 .card:hover {
     transform: scale(1.05);
     transition: transform 0.3s ease;

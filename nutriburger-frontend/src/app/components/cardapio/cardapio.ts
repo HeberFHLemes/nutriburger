@@ -135,8 +135,4 @@ export class Cardapio implements OnInit{
     const valorFormatado = Number(valor).toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
     return unidade ? `${valorFormatado} ${unidade}` : valorFormatado;
   }
-
-  adicionarAoCarrinho(produtoId: number | undefined) {
-    if (!produtoId) return;
-  }
 }
