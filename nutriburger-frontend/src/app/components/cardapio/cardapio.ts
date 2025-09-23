@@ -15,7 +15,7 @@ interface Produto {
   nome: string;
   descricao: string;
   preco: number;
-  imagemUrl?: string;
+  imagemUrl: string;
   dadosNutricionais: { [key: string]: string };
   ingredientes: string[];
 }
@@ -24,7 +24,7 @@ interface ProdutoBasico {
   id: number;
   nome: string;
   preco: number;
-  imagemUrl?: string;
+  imagemUrl: string;
 }
 
 interface Categoria {
@@ -103,8 +103,6 @@ export class Cardapio implements OnInit{
       .subscribe({
         next: (data) => {
           this.produtoDados = data;
-        
-          this.produtoDados.imagemUrl = this.produtoDados.imagemUrl ? this.produtoDados.imagemUrl : 'assets/logo.jpg';
         },
         error: () => {
           alert('Erro ao carregar dados do produto...');

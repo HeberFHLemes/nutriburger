@@ -23,7 +23,7 @@
               (click)="abrirModal(produto.id)"
               data-bs-toggle="modal"
               data-bs-target="#produtoModal">
-              <img src="assets/logo.jpg" class="img-fluid rounded imagem-card-produto" [alt]="produto.nome">
+              <img [src]="produto.imagemUrl" class="img-fluid rounded imagem-card-produto" [alt]="produto.nome">
               <div class="card-body">
                 <h5 class="card-title">{{ produto.nome }}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">
