@@ -15,7 +15,7 @@ interface Produto {
   nome: string;
   descricao: string;
   preco: number;
-  imagemUrl: string;
+  imagemUrl?: string;
   dadosNutricionais: { [key: string]: string };
   ingredientes: string[];
 }
@@ -24,7 +24,7 @@ interface ProdutoBasico {
   id: number;
   nome: string;
   preco: number;
-  imagemUrl: string;
+  imagemUrl?: string;
 }
 
 interface Categoria {

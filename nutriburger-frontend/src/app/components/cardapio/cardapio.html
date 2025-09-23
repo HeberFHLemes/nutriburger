@@ -23,7 +23,7 @@
               (click)="abrirModal(produto.id)"
               data-bs-toggle="modal"
               data-bs-target="#produtoModal">
-              <img [src]="produto.imagemUrl" class="img-fluid rounded imagem-card-produto" [alt]="produto.nome">
+              <!--<img [src]="produto.imagemUrl" class="img-fluid rounded imagem-card-produto" [alt]="produto.nome">-->
               <div class="card-body">
                 <h5 class="card-title">{{ produto.nome }}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">
@@ -48,11 +48,14 @@
       @if (produtoDados){
         <div class="modal-body">
           <div class="row g-4">
-            <div class="col-md-5">
+            <!--<div class="col-md-5">
               <img [src]="produtoDados.imagemUrl" class="img-fluid rounded" [alt]="produtoDados.nome">
-            </div>
-            <div class="col-md-7">
-              <h4 class="mb-1">{{ produtoDados.nome }}</h4>
+            </div>-->
+            <div class="col-md-12">
+              @if (produtoDados.imagemUrl && !produtoDados.imagemUrl.endsWith('logo.png')){
+                <img [src]="'assets/produtos/' + produtoDados.imagemUrl" class="img-fluid rounded" [alt]="produtoDados.nome">
+              }
+              <h4 class="mb-1 mt-3">{{ produtoDados.nome }}</h4>
               <h5 class="text-success mb-3">
                 {{ produtoDados.preco | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
               </h5>
