@@ -12,6 +12,7 @@ public class ProdutoDTO {
     private final String nome;
     private final String descricao;
     private final Double preco;
+    private final String imagemUrl;
     private Map<String, String> dadosNutricionais;
     private final List<String> ingredientes;
 
@@ -20,6 +21,7 @@ public class ProdutoDTO {
         this.nome = produto.getNome();
         this.descricao = produto.getDescricao();
         this.preco = produto.getPreco();
+        this.imagemUrl = produto.getImagemUrl();
 
         if (produto.getDadosNutricionais() != null) {
             this.dadosNutricionais = TipoDadoNutricional.getDadosMapeados(produto.getDadosNutricionais().toMap());
@@ -43,6 +45,10 @@ public class ProdutoDTO {
 
     public Double getPreco() {
         return preco;
+    }
+
+    public String getImagemUrl(){
+        return imagemUrl;
     }
 
     public Map<String, String> getDadosNutricionais() {

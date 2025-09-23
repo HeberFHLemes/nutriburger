@@ -22,7 +22,7 @@ public class CategoriaDTO {
         this.id = categoria.getId();
         this.nome = categoria.getNome();
         this.produtos = categoria.getProdutos().stream().map(
-                p -> new ProdutoBasicoDTO(p.getId(), p.getNome(), p.getPreco())
+                p -> new ProdutoBasicoDTO(p.getId(), p.getNome(), p.getPreco(), p.getImagemUrl())
         ).toList();
     }
 

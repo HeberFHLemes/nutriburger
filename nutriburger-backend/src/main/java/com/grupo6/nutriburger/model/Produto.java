@@ -73,6 +73,10 @@ public final class Produto {
         return preco;
     }
 
+    public String getImagemUrl(){
+        return imagemUrl;
+    }
+
     public DadosNutricionais getDadosNutricionais() { return dadosNutricionais; }
 
     public Set<Ingrediente> getIngredientes() { return ingredientes; }

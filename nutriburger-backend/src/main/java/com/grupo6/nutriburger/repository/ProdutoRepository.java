@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ProdutoRepository extends JpaRepository<Produto, Integer> {
 
-    @Query("SELECT new com.grupo6.nutriburger.dto.ProdutoBasicoDTO(p.id, p.nome, p.preco) FROM Produto p")
+    @Query("SELECT new com.grupo6.nutriburger.dto.ProdutoBasicoDTO(p.id, p.nome, p.preco, p.imagemUrl) FROM Produto p")
     List<ProdutoBasicoDTO> buscarProdutosBasicos();
 
 }
