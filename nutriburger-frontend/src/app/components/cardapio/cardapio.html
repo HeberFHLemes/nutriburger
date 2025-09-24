@@ -66,18 +66,6 @@
                 {{ produtoDados.preco | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
               </h5>
               <p class="mb-4">{{ produtoDados.descricao }}</p>
-              
-              <!-- Badges de ingredientes, desativado por conta da descrição já ser suficiente
-              @if (produtoDados.ingredientes.length > 0) {
-                <div class="mt-3 mb-3">
-                  @for (ingrediente of produtoDados.ingredientes; track $index) {
-                    <span class="badge bg-black me-1">
-                      {{ ingrediente }}
-                    </span>
-                  }
-                </div>
-              }
-              -->
 
               @if (produtoDados.dadosNutricionais && produtoDados.dadosNutricionais.length > 0) {
                 <h6>Dados Nutricionais</h6>

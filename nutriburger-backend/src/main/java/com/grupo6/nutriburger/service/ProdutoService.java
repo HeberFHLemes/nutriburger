@@ -3,7 +3,6 @@ package com.grupo6.nutriburger.service;
 import com.grupo6.nutriburger.dto.DadosNutricionaisDTO;
 import com.grupo6.nutriburger.dto.ProdutoBasicoDTO;
 import com.grupo6.nutriburger.dto.ProdutoDTO;
-import com.grupo6.nutriburger.model.Ingrediente;
 import com.grupo6.nutriburger.model.Produto;
 import com.grupo6.nutriburger.repository.ProdutoRepository;
 import org.springframework.stereotype.Service;
@@ -44,11 +43,6 @@ public class ProdutoService {
                 pn.getNutriente().getNome(), 
                 pn.getDadoNutricional(),
                 pn.getNutriente().getUnidadeMedida())).toList();
-        
-        List<String> ingredientes = produto.getIngredientes()
-                .stream()
-                .map(Ingrediente::getNome)
-                .toList();
 
         return new ProdutoDTO(
             produto.getId(),
@@ -56,8 +50,7 @@ public class ProdutoService {
             produto.getDescricao(),
             produto.getPreco(),
             produto.getImagemUrl(),
-            dadosNutricionais,
-            ingredientes
+            dadosNutricionais
         );
     }
 }

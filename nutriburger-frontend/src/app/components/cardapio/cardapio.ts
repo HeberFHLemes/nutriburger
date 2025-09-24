@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CurrencyPipe } from '@angular/common';
-//import { KeyValuePipe } from '@angular/common';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { environment } from '../../../environments/environment';
@@ -22,7 +21,6 @@ interface Produto {
   preco: number;
   imagemUrl?: string;
   dadosNutricionais: DadoNutricional[];
-  ingredientes: string[];
 }
 
 interface ProdutoBasico {
@@ -51,7 +49,7 @@ export class Cardapio implements OnInit{
   /* 
     Atributos para que, ao clicar em um modal,
     carregam-se os dados completos do produto selecionado
-    (nome, descrição, preço, ingredientes, dados nutricionais)
+    (nome, descrição, preço, dados nutricionais)
     para exibir em um modal.
   */
   produtoDados: Produto | undefined;
@@ -100,7 +98,7 @@ export class Cardapio implements OnInit{
   /**
    * Obtém os dados completos de um produto.
    * @param id ID do produto a ser buscado
-   * @returns Dados completos do produto (nome, descrição, preço, ingredientes, dados nutricionais)
+   * @returns Dados completos do produto (nome, descrição, preço, dados nutricionais)
    */
   getProdutoDados(id: number){
     const headers = new HttpHeaders({
