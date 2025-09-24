@@ -23,11 +23,11 @@
               (click)="abrirModal(produto.id)"
               data-bs-toggle="modal"
               data-bs-target="#produtoModal">
-              
-              @if (!produto.imagemUrl){                
-                <img [src]="'assets/produtos/' + produto.imagemUrl" class="img-fluid rounded d-block mx-auto imagem-card-produto" loading="lazy" [alt]="produto.nome">
+
+              @if (produto.imagemUrl){         
+                <img [src]="'assets/produtos/' + produto.imagemUrl + '.webp'" class="img-fluid rounded d-block mx-auto imagem-card-produto" loading="lazy" [alt]="produto.nome">
               }
-              
+
               <div class="card-body">
                 <h5 class="card-title">{{ produto.nome }}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">
@@ -54,7 +54,7 @@
           @if (produtoDados.imagemUrl){                
             <div class="row g-4">
               <div class="col-md-12">
-                <img [src]="'assets/produtos/' + produtoDados.imagemUrl" class="img-fluid rounded d-block mx-auto imagem-modal-produto" [alt]="produtoDados.nome">
+                <img [src]="'assets/produtos/' + produtoDados.imagemUrl + '.webp'" class="img-fluid rounded d-block mx-auto imagem-modal-produto" loading="lazy" [alt]="produtoDados.nome">
                 <hr>
               </div>
             </div>

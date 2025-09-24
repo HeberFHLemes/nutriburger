@@ -87,6 +87,9 @@ export class Cardapio implements OnInit{
       .subscribe({
         next: (data) => {
           this.categorias = data;
+          for (let categoria of this.categorias){
+            categoria.produtos.sort((a, b) => a.nome.localeCompare(b.nome));
+          }
         },
         error: () => {
           alert('Erro ao carregar o cardápio...');
