@@ -28,3 +28,8 @@
 .card-footer, #precoCard {
     text-align: right;
 }
+
+.imagem-modal-produto {
+    height: auto;
+    max-height: 40vh;
+}

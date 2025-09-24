@@ -23,7 +23,11 @@
               (click)="abrirModal(produto.id)"
               data-bs-toggle="modal"
               data-bs-target="#produtoModal">
-              <!--<img [src]="produto.imagemUrl" class="img-fluid rounded imagem-card-produto" [alt]="produto.nome">-->
+              
+              @if (!produto.imagemUrl){                
+                <img [src]="'assets/produtos/' + produto.imagemUrl" class="img-fluid rounded d-block mx-auto imagem-card-produto" loading="lazy" [alt]="produto.nome">
+              }
+              
               <div class="card-body">
                 <h5 class="card-title">{{ produto.nome }}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">
@@ -47,14 +51,16 @@
       </div>
       @if (produtoDados){
         <div class="modal-body">
+          @if (produtoDados.imagemUrl){                
+            <div class="row g-4">
+              <div class="col-md-12">
+                <img [src]="'assets/produtos/' + produtoDados.imagemUrl" class="img-fluid rounded d-block mx-auto imagem-modal-produto" [alt]="produtoDados.nome">
+                <hr>
+              </div>
+            </div>
+          }
           <div class="row g-4">
-            <!--<div class="col-md-5">
-              <img [src]="produtoDados.imagemUrl" class="img-fluid rounded" [alt]="produtoDados.nome">
-            </div>-->
             <div class="col-md-12">
-              @if (produtoDados.imagemUrl && !produtoDados.imagemUrl.endsWith('logo.png')){
-                <img [src]="'assets/produtos/' + produtoDados.imagemUrl" class="img-fluid rounded" [alt]="produtoDados.nome">
-              }
               <h4 class="mb-1 mt-3">{{ produtoDados.nome }}</h4>
               <h5 class="text-success mb-3">
                 {{ produtoDados.preco | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
@@ -65,9 +71,9 @@
               @if (produtoDados.ingredientes.length > 0) {
                 <div class="mt-3 mb-3">
                   @for (ingrediente of produtoDados.ingredientes; track $index) {
-                      <span class="badge bg-black me-1">
-                          {{ ingrediente }}
-                      </span>
+                    <span class="badge bg-black me-1">
+                      {{ ingrediente }}
+                    </span>
                   }
                 </div>
               }
@@ -79,7 +85,7 @@
                   <tbody>
                     @for (dado of produtoDados.dadosNutricionais; track $index){
                       <tr>
-                        <td>{{ dado.nome }}</td>
+                        <td class="fw-normal">{{ dado.nome }}</td>
                         <td>{{ formatarDadoNutricional(dado.valor) }}</td>
                       </tr>
                     }
