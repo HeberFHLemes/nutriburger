@@ -75,3 +75,6 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Imagens dos produtos
+nutriburger-frontend/src/assets/produtos
