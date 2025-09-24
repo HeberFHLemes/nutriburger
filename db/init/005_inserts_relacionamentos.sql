@@ -46,46 +46,30 @@ INSERT INTO ingrediente_nutriente (ingrediente_id, nutriente_id, dado_nutriciona
 
 -- ================== PRODUTO_INGREDIENTE ==================
 -- Hambúrgueres
-INSERT INTO produto_ingrediente (produto_id, ingrediente_id) VALUES
--- Clássico da Casa
-(1,1),(1,7),(1,12),(1,13),(1,15),
--- Frango da Horta
-(2,2),(2,12),(2,13),(2,17),
--- Carne Magra
-(3,1),(3,5),(3,12),(3,13),
--- Vegetal
-(4,3),(4,5),(4,16),
--- Duplo Sabor
-(5,1),(5,9),(5,6),(5,15),
--- Explosão de Queijo
-(6,1),(6,10),(6,11),(6,9),(6,15),
--- Bacon Crocante
-(7,1),(7,6),(7,7),(7,18);
+INSERT INTO produto_ingrediente (produto_id, ingrediente_id, quantidade) VALUES
+(1, 1, 240),(1, 7, 60),(1, 6, 40),(1, 12, 15),(1, 13, 30),(1, 15, 20),
+(2, 2, 120),(2, 12, 15),(2, 13, 30),(2, 17, 20),
+(3, 1, 120),(3, 5, 60),(3, 12, 15),(3, 13, 30),
+(4, 3, 120),(4, 5, 60),(4, 16, 20),
+(5, 1, 240),(5, 9, 30),(5, 6, 20),(5, 15, 20),
+(6, 1, 120),(6, 10, 30),(6, 11, 30),(6, 9, 30),(6, 15, 20),
+(7, 1, 120),(7, 6, 40),(7, 7, 30),(7, 18, 20);
 
 -- Acompanhamentos
-INSERT INTO produto_ingrediente (produto_id, ingrediente_id) VALUES
--- Batata Frita Tradicional
-(13,19),
--- Batata Rústica
-(14,19),
--- Batata Palito c/ Cheddar e Bacon
-(15,19),(15,9),(15,6),
--- Onion Rings
-(16,20),
--- Salada da Casa
-(17,21),(17,13);
+INSERT INTO produto_ingrediente (produto_id, ingrediente_id, quantidade) VALUES
+(13, 19, 150),
+(14, 19, 150),
+(15, 19, 200),(15, 9, 50),(15, 6, 50),
+(16, 20, 100),
+(17, 21, 40),(17, 13, 30);
 
 -- Molhos
-INSERT INTO produto_ingrediente (produto_id, ingrediente_id) VALUES
-(18,15),(18,18);
+INSERT INTO produto_ingrediente (produto_id, ingrediente_id, quantidade) VALUES
+(18, 15, 20),(18, 18, 20);
 
 -- Sobremesas
-INSERT INTO produto_ingrediente (produto_id, ingrediente_id) VALUES
--- Brownie de Chocolate
-(19,22),
--- Cookie Recheado
-(20,23),(20,24),
--- Cheesecake no Pote
-(21,25),(21,29),
--- Açaí Tradicional
-(22,26),(22,27),(22,28),(22,30);
+INSERT INTO produto_ingrediente (produto_id, ingrediente_id, quantidade) VALUES
+(19, 22, 100),
+(20, 23, 60),(20, 24, 40),
+(21, 25, 80),(21, 29, 20),
+(22, 26, 200),(22, 27, 30),(22, 28, 50),(22, 30, 20);
