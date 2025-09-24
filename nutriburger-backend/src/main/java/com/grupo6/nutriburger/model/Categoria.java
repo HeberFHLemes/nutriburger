@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity @Immutable
-@Table(name = "categorias")
+@Table(name = "categoria")
 public final class Categoria {
 
     @Id
@@ -27,7 +27,7 @@ public final class Categoria {
         this.nome = nome;
     }
 
-    protected Categoria(){}
+    public Categoria(){}
 
     public Integer getId() {
         return id;

@@ -73,14 +73,14 @@
               }
               -->
 
-              @if (produtoDados.dadosNutricionais) {
+              @if (produtoDados.dadosNutricionais && produtoDados.dadosNutricionais.length > 0) {
                 <h6>Dados Nutricionais</h6>
                 <table class="table table-sm table-bordered mt-2">
                   <tbody>
-                    @for (entry of produtoDados.dadosNutricionais | keyvalue; track entry.key) {
+                    @for (dado of produtoDados.dadosNutricionais; track $index){
                       <tr>
-                        <td class="fw-semibold">{{ entry.key }}</td>
-                        <td>{{ formatarDadoNutricional(entry.value) }}</td>
+                        <td>{{ dado.nome }}</td>
+                        <td>{{ formatarDadoNutricional(dado.valor) }}</td>
                       </tr>
                     }
                   </tbody>

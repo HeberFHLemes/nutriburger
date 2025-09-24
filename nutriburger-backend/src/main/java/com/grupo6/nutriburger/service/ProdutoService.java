@@ -1,7 +1,9 @@
 package com.grupo6.nutriburger.service;
 
+import com.grupo6.nutriburger.dto.DadosNutricionaisDTO;
 import com.grupo6.nutriburger.dto.ProdutoBasicoDTO;
 import com.grupo6.nutriburger.dto.ProdutoDTO;
+import com.grupo6.nutriburger.model.Ingrediente;
 import com.grupo6.nutriburger.model.Produto;
 import com.grupo6.nutriburger.repository.ProdutoRepository;
 import org.springframework.stereotype.Service;
@@ -28,10 +30,34 @@ public class ProdutoService {
     public ProdutoDTO getById(final Integer id){
         Produto produto = produtoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Produto não encontrado..."));
-        return new ProdutoDTO(produto);
+        return toDTO(produto);
     }
 
     private List<ProdutoDTO> toListDTO(List<Produto> produto){
-        return produto.stream().map(ProdutoDTO::new).toList();
+        return produto.stream().map(p -> toDTO(p)).toList();
+    }
+
+    private ProdutoDTO toDTO(Produto produto){
+        
+        List<DadosNutricionaisDTO> dadosNutricionais = produto.getNutrientes()
+            .stream().map(pn -> new DadosNutricionaisDTO(
+                pn.getNutriente().getNome(), 
+                pn.getDadoNutricional(),
+                pn.getNutriente().getUnidadeMedida())).toList();
+        
+        List<String> ingredientes = produto.getIngredientes()
+                .stream()
+                .map(Ingrediente::getNome)
+                .toList();
+
+        return new ProdutoDTO(
+            produto.getId(),
+            produto.getNome(),
+            produto.getDescricao(),
+            produto.getPreco(),
+            produto.getImagemUrl(),
+            dadosNutricionais,
+            ingredientes
+        );
     }
 }

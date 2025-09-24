@@ -8,8 +8,6 @@ CREATE TABLE produto (
   nome VARCHAR(50) NOT NULL,
   descricao VARCHAR(255) NOT NULL,
   preco NUMERIC(10, 2) NOT NULL,
-  -- porcao NUMERIC(10, 2),
-  -- porcao_unidade VARCHAR(20),
   imagem_url VARCHAR(255),
   categoria_id INT NOT NULL,
   FOREIGN KEY (categoria_id) REFERENCES categoria(id) ON DELETE NO ACTION

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CurrencyPipe } from '@angular/common';
-import { KeyValuePipe } from '@angular/common';
+//import { KeyValuePipe } from '@angular/common';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { environment } from '../../../environments/environment';
@@ -10,13 +10,18 @@ import { RouterLink } from '@angular/router';
 
 registerLocaleData(localePt);
 
+interface DadoNutricional {
+  nome: string;
+  valor: string;
+}
+
 interface Produto {
   id: number;
   nome: string;
   descricao: string;
   preco: number;
   imagemUrl?: string;
-  dadosNutricionais: { [key: string]: string };
+  dadosNutricionais: DadoNutricional[];
   ingredientes: string[];
 }
 
@@ -36,7 +41,7 @@ interface Categoria {
 @Component({
   selector: 'app-cardapio',
   standalone: true,
-  imports: [CurrencyPipe, KeyValuePipe, RouterLink],
+  imports: [CurrencyPipe, RouterLink],
   templateUrl: './cardapio.html',
   styleUrl: './cardapio.css'
 })

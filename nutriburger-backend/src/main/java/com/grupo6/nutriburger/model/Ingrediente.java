@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity @Immutable
-@Table(name = "ingredientes")
+@Table(name = "ingrediente")
 public final class Ingrediente {
 
     @Id
@@ -21,30 +21,14 @@ public final class Ingrediente {
     @Column(insertable = false, updatable = false)
     private String nome;
 
-    @Column(insertable = false, updatable = false)
-    private Double acucares;
-
-    @Column(insertable = false, updatable = false)
-    private Double carboidratos;
-
-    @Column(insertable = false, updatable = false)
-    private Double proteinas;
-
-    @Column(insertable = false, updatable = false)
-    private Double sodio;
-
     @ManyToMany(mappedBy = "ingredientes")
     @JsonIgnore
     private Set<Produto> produtos = new HashSet<>();
 
-    protected Ingrediente(){}
+    public Ingrediente(){}
 
-    public Ingrediente(String nome, Double carboidratos, Double proteinas, Double acucares, Double sodio) {
-        this.nome = nome;
-        this.carboidratos = carboidratos;
-        this.proteinas = proteinas;
-        this.acucares = acucares;
-        this.sodio = sodio;
+    public Ingrediente(String nome){
+        this.nome=nome;
     }
 
     public Integer getId() {
@@ -53,21 +37,5 @@ public final class Ingrediente {
 
     public String getNome() {
         return nome;
-    }
-
-    public Double getCarboidratos() {
-        return carboidratos;
-    }
-
-    public Double getProteinas() {
-        return proteinas;
-    }
-
-    public Double getAcucares() {
-        return acucares;
-    }
-
-    public Double getSodio() {
-        return sodio;
     }
 }
